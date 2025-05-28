@@ -19,7 +19,6 @@ model BarberShop {
   nome             String
   email            String   @unique
   senha_hash       String
-  avaliacao        Int
   area_atendimento String
   CEP              String
   estado           String
