@@ -5,6 +5,16 @@ import { randomUUID } from 'node:crypto'
 export class InMemoryBarberShopRepository implements BarberShopRepository {
   private barberShops: BarberShop[] = []
 
+  async findById(id: string) {
+    const barberShop = this.barberShops.find(barberShop => id === barberShop.id)
+
+    if (!barberShop) {
+      return null
+    }
+
+    return barberShop
+  }
+
   async create(data: Prisma.BarberShopCreateInput) {
     const barberShop = {
       id: randomUUID(),
