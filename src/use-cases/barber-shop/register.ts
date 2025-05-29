@@ -39,12 +39,12 @@ export class RegisterUseCase {
   }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
     const senha_hash = await hash(senha, 6)
 
-    // const userAlreadyExists =
-    //   await this.barberShopeRepository.findByEmail(email)
+    const userAlreadyExists =
+      await this.barberShopeRepository.findByEmail(email)
 
-    // if (userAlreadyExists) {
-    //   throw new UserAlreadyExists()
-    // }
+    if (userAlreadyExists) {
+      throw new UserAlreadyExists()
+    }
 
     const barberShop = await this.barberShopeRepository.create({
       nome,

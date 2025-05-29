@@ -27,7 +27,15 @@ export class InMemoryBarberShopRepository implements BarberShopRepository {
     return barberShop
   }
 
-  findByEmail(email: string): Promise<BarberShop | null> {
-    throw new Error('Method not implemented.')
+  async findByEmail(email: string) {
+    const barberShop = this.barberShops.find(
+      barberShop => email === barberShop.email
+    )
+
+    if (!barberShop) {
+      return null
+    }
+
+    return barberShop
   }
 }
