@@ -1,7 +1,8 @@
 import type { BarberShopRepository } from '@/repositories/barber-shop-repository'
 import { hash } from 'bcryptjs'
 import type { BarberShop } from 'generated/prisma'
-import { UserAlreadyExists } from '../errors/user-already-exists-error'
+import { BarberAlreadyExists } from '../errors/barber-already-exists-error'
+import { BarberInvalidParameters } from '../errors/barber-invalid-parameters-error'
 
 interface RegisterUseCaseRequest {
   nome: string
@@ -39,11 +40,18 @@ export class RegisterUseCase {
   }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
     const senha_hash = await hash(senha, 6)
 
+    const cleanCep = CEP.replace('-', '')
+    const isValidCep = /^\d{8}$/.test(cleanCep)
+
+    if (!isValidCep) {
+      throw new BarberInvalidParameters()
+    }
+
     const userAlreadyExists =
       await this.barberShopeRepository.findByEmail(email)
 
     if (userAlreadyExists) {
-      throw new UserAlreadyExists()
+      throw new BarberAlreadyExists()
     }
 
     const barberShop = await this.barberShopeRepository.create({

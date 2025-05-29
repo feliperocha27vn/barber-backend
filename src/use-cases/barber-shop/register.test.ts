@@ -3,7 +3,8 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { RegisterUseCase } from './register'
 import type { BarberShopRepository } from '@/repositories/barber-shop-repository'
 import { compare } from 'bcryptjs'
-import { UserAlreadyExists } from '../errors/user-already-exists-error'
+import { BarberAlreadyExists } from '../errors/barber-already-exists-error'
+import { BarberInvalidParameters } from '../errors/barber-invalid-parameters-error'
 
 let barberShopRepository: BarberShopRepository
 let sut: RegisterUseCase
@@ -63,6 +64,42 @@ describe('Register use case', () => {
         numero: '1578',
         complemento: 'Sala 205',
       })
-    ).rejects.toBeInstanceOf(UserAlreadyExists)
+    ).rejects.toBeInstanceOf(BarberAlreadyExists)
+  })
+
+  it('deve garantir que o CEP seja valido', () => {
+    expect(() =>
+      sut.execute({
+        nome: 'Barbearia do João',
+        email: 'contato@barbeariadojoao.com.br',
+        senha: '123',
+        area_atendimento: 'Centro',
+        CEP: '01310-10',
+        estado: 'SP',
+        cidade: 'São Paulo',
+        bairro: 'Bela Vista',
+        logradouro: 'Avenida Paulista',
+        numero: '1578',
+        complemento: 'Sala 205',
+      })
+    ).rejects.toBeInstanceOf(BarberInvalidParameters)
+  })
+
+  it('deve garantir que a barbearia seja registrada', async () => {
+    const { barberShop } = await sut.execute({
+      nome: 'Barbearia do João',
+      email: 'contato@barbeariadojoao.com.br',
+      senha: '123',
+      area_atendimento: 'Centro',
+      CEP: '01310-100',
+      estado: 'SP',
+      cidade: 'São Paulo',
+      bairro: 'Bela Vista',
+      logradouro: 'Avenida Paulista',
+      numero: '1578',
+      complemento: 'Sala 205',
+    })
+
+    expect(barberShop.id).toEqual(expect.any(String))
   })
 })
