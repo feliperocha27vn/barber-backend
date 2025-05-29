@@ -6,7 +6,8 @@
     "dev": "tsx watch --env-file=.env src/server.ts",
     "start": "node dist/server.js",
     "build": "tsup src",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@types/node": "22.15.21",
+    "@vitest/coverage-v8": "3.1.4",
     "prisma": "6.8.2",
     "tsup": "8.5.0",
     "tsx": "4.19.4",
