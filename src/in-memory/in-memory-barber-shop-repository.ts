@@ -26,6 +26,7 @@ export class InMemoryBarberShopRepository implements BarberShopRepository {
 
     return barberShop
   }
+
   findByEmail(email: string): Promise<BarberShop | null> {
     throw new Error('Method not implemented.')
   }
