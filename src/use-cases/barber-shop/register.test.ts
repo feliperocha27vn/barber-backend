@@ -67,8 +67,8 @@ describe('Register use case', () => {
     ).rejects.toBeInstanceOf(BarberAlreadyExists)
   })
 
-  it('deve garantir que o CEP seja valido', () => {
-    expect(() =>
+  it('deve garantir que o CEP seja valido', async () => {
+    await expect(() =>
       sut.execute({
         nome: 'Barbearia do João',
         email: 'contato@barbeariadojoao.com.br',
