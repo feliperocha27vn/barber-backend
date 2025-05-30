@@ -7,7 +7,5 @@ export interface BarberShopRepository {
 
   findById(id: string): Promise<BarberShop | null>
 
-  findAllBarbersShops(
-    data: Prisma.BarberShopFindManyArgs
-  ): Promise<BarberShop | null>
+  findAllBarbersShops(query: string): Promise<BarberShop[]>
 }
