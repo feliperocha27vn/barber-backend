@@ -6,4 +6,8 @@ export interface BarberShopRepository {
   findByEmail(email: string): Promise<BarberShop | null>
 
   findById(id: string): Promise<BarberShop | null>
+
+  findAllBarbersShops(
+    data: Prisma.BarberShopFindManyArgs
+  ): Promise<BarberShop | null>
 }
