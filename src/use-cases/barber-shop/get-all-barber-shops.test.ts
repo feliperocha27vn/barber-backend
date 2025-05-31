@@ -44,7 +44,7 @@ describe('Get all barber shops', () => {
     })
 
     const { barberShops } = await sut.execute({
-      query: 'Armando',
+      query: 'Barber',
     })
 
     expect(barberShops).toEqual([
