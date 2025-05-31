@@ -2,7 +2,7 @@ import type { BarberShopRepository } from '@/repositories/barber-shop-repository
 import { hash } from 'bcryptjs'
 import type { BarberShop } from 'generated/prisma'
 import { BarberAlreadyExists } from '../errors/barber-already-exists-error'
-import { BarberInvalidParameters } from '../errors/barber-invalid-parameters-error'
+import { InvalidParameters } from '../errors/invalid-parameters-error'
 
 interface RegisterUseCaseRequest {
   nome: string
@@ -44,7 +44,7 @@ export class RegisterUseCase {
     const isValidCep = /^\d{8}$/.test(cleanCep)
 
     if (!isValidCep) {
-      throw new BarberInvalidParameters()
+      throw new InvalidParameters()
     }
 
     const userAlreadyExists =

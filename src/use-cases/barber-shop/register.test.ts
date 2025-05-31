@@ -4,7 +4,7 @@ import { RegisterUseCase } from './register'
 import type { BarberShopRepository } from '@/repositories/barber-shop-repository'
 import { compare } from 'bcryptjs'
 import { BarberAlreadyExists } from '../errors/barber-already-exists-error'
-import { BarberInvalidParameters } from '../errors/barber-invalid-parameters-error'
+import { InvalidParameters } from '../errors/invalid-parameters-error'
 
 let barberShopRepository: BarberShopRepository
 let sut: RegisterUseCase
@@ -82,7 +82,7 @@ describe('Register use case', () => {
         numero: '1578',
         complemento: 'Sala 205',
       })
-    ).rejects.toBeInstanceOf(BarberInvalidParameters)
+    ).rejects.toBeInstanceOf(InvalidParameters)
   })
 
   it('deve garantir que a barbearia seja registrada', async () => {

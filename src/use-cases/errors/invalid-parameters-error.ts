@@ -1,4 +1,4 @@
-export class BarberInvalidParameters extends Error {
+export class InvalidParameters extends Error {
   constructor() {
     super('Parameters invalids')
   }
