@@ -3,6 +3,7 @@ import type { BarberShopRepository } from '@/repositories/barber-shop-repository
 import { GetAllBarberShopsUseCase } from './get-all-barber-shops'
 import { InMemoryBarberShopRepository } from '@/in-memory/in-memory-barber-shop-repository'
 import { hash } from 'bcryptjs'
+import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 
 let barberShopRepository: BarberShopRepository
 let sut: GetAllBarberShopsUseCase
@@ -85,5 +86,13 @@ describe('Get all barber shops', () => {
     })
 
     expect(barberShops).toHaveLength(2)
+  })
+
+  it('deve garantir que um erro apareça caso não exista barbearias', async () => {
+    await expect(() =>
+      sut.execute({
+        query: '',
+      })
+    ).rejects.toBeInstanceOf(ResourceNotFoundError)
   })
 })

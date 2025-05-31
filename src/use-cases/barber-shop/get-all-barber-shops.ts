@@ -19,7 +19,7 @@ export class GetAllBarberShopsUseCase {
     const barberShops =
       await this.barberShopsRepository.findAllBarbersShops(query)
 
-    if (!barberShops) {
+    if (barberShops.length === 0) {
       throw new ResourceNotFoundError()
     }
 
