@@ -1,4 +1,4 @@
-import type { Prisma, BarberShop } from 'generated/prisma'
+import type { Prisma, BarberShop } from '@prisma/client'
 
 export interface BarberShopRepository {
   create(data: Prisma.BarberShopCreateInput): Promise<BarberShop>

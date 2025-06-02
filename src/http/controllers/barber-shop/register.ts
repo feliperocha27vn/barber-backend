@@ -64,7 +64,7 @@ export const register: FastifyPluginAsyncZod = async app => {
 
         if (error instanceof BarberAlreadyExists) {
           return response.status(409).send({
-            message: 'Internal server error',
+            message: error.message,
           })
         }
 
