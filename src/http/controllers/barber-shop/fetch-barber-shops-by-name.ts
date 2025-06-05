@@ -1,26 +1,26 @@
-import { makeGetBarberShopUseCase } from '@/factories/barber-shop/make-get-barber-shop-use-case'
+import { makeFetchBarberShopsByName } from '@/factories/barber-shop/make-fetch-barber-shops-by-name-use-case'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
-export const getBarberShop: FastifyPluginAsyncZod = async app => {
+export const fetchBarberShopsByName: FastifyPluginAsyncZod = async app => {
   app.post(
-    '/barbearias/get-barber-shops',
+    '/barbearias/fetch-barber-shops',
     {
       schema: {
         body: z.object({
-          barber_id: z.string().uuid(),
+          query: z.string(),
         }),
       },
     },
     async (request, response) => {
-      const { barber_id } = request.body
+      const { query } = request.body
 
-      const getBarberShopUseCase = makeGetBarberShopUseCase()
+      const fetchBarberShopsByName = makeFetchBarberShopsByName()
 
       try {
-        const barberShop = await getBarberShopUseCase.execute({
-          barberShopId: barber_id,
+        const barberShop = await fetchBarberShopsByName.execute({
+          query,
         })
 
         return response.status(200).send(barberShop)

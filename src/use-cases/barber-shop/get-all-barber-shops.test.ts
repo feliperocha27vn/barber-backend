@@ -15,7 +15,7 @@ describe('Get all barber shops', () => {
 
   it('deve trazer barbearias de acordo com o filtro', async () => {
     await barberShopRepository.create({
-      nome: 'Barbearia do João',
+      nome: 'Barber do João',
       email: 'contato@barbeariadojoao.com.br',
       senha_hash: await hash('123', 6),
       area_atendimento: 'Centro',
@@ -46,7 +46,9 @@ describe('Get all barber shops', () => {
       query: 'Barber',
     })
 
+    expect(barberShops).toHaveLength(2)
     expect(barberShops).toEqual([
+      expect.objectContaining({ nome: 'Barber do João' }),
       expect.objectContaining({ nome: 'Barber do Armando' }),
     ])
   })
