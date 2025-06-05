@@ -1,5 +1,5 @@
 import type { BarberShopRepository } from '@/repositories/barber-shop-repository'
-import type { BarberShop } from 'generated/prisma'
+import type { BarberShop } from '@prisma/client'
 import { InvalidCredentialsError } from '../errors/invalid-credentials-error'
 import { compare } from 'bcryptjs'
 

@@ -6,7 +6,7 @@ import { z } from 'zod'
 
 export const register: FastifyPluginAsyncZod = async app => {
   app.post(
-    '/barbearias',
+    '/barbearias/register',
     {
       schema: {
         body: z.object({

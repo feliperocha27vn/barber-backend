@@ -1,4 +1,4 @@
-import type { BarberShop, Prisma } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
 import type { BarberShopRepository } from '../barber-shop-repository'
 import { prisma } from '@/lib/prisma'
 
