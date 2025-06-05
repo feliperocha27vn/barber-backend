@@ -1,5 +1,5 @@
 import type { BarberShopRepository } from '@/repositories/barber-shop-repository'
-import type { Prisma, BarberShop } from 'generated/prisma'
+import type { Prisma, BarberShop } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryBarberShopRepository implements BarberShopRepository {

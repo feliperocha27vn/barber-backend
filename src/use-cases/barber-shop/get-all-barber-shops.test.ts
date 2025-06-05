@@ -1,11 +1,10 @@
 import { describe, it, beforeEach, expect } from 'vitest'
-import type { BarberShopRepository } from '@/repositories/barber-shop-repository'
 import { GetAllBarberShopsUseCase } from './get-all-barber-shops'
 import { InMemoryBarberShopRepository } from '@/in-memory/in-memory-barber-shop-repository'
 import { hash } from 'bcryptjs'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 
-let barberShopRepository: BarberShopRepository
+let barberShopRepository: InMemoryBarberShopRepository
 let sut: GetAllBarberShopsUseCase
 
 describe('Get all barber shops', () => {
