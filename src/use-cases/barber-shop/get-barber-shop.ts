@@ -1,5 +1,5 @@
 import type { BarberShopRepository } from '@/repositories/barber-shop-repository'
-import type { BarberShop } from 'generated/prisma'
+import type { BarberShop } from '@prisma/client'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 
 interface GetBarberShopUseCaseRequest {
