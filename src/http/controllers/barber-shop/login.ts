@@ -25,7 +25,7 @@ export const login: FastifyPluginAsyncZod = async app => {
           senha,
         })
 
-        return response.status(200).send({ barberShop })
+        return response.status(200).send(barberShop)
       } catch (error) {
         if (error instanceof InvalidCredentialsError) {
           return response.status(409).send({
