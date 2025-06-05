@@ -36,6 +36,7 @@ export class PrismaBarberShopRepository implements BarberShopRepository {
       where: {
         nome: {
           contains: query,
+          // não diferencia maiusculas e minusculas
           mode: 'insensitive',
         },
       },
