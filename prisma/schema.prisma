@@ -39,8 +39,8 @@ model Services {
   preco     Decimal
   createdAt DateTime @default(now())
 
-  barber_shop  BarberShop @relation(fields: [barberShopId], references: [id])
-  barberShopId String
+  barber_shop    BarberShop @relation(fields: [barber_shop_id], references: [id])
+  barber_shop_id String
 
   @@map("services")
 }
