@@ -14,9 +14,9 @@ datasource db {
 }
 
 model BarberShop {
-  id               String   @id @default(uuid())
+  id               String     @id @default(uuid())
   nome             String
-  email            String   @unique
+  email            String     @unique
   senha_hash       String
   area_atendimento String
   CEP              String
@@ -26,7 +26,21 @@ model BarberShop {
   logradouro       String
   numero           String
   complemento      String?
-  createdAt        DateTime @default(now())
+  createdAt        DateTime   @default(now())
+  Services         Services[]
 
   @@map("barber_shop")
+}
+
+model Services {
+  id        String   @id @default(uuid())
+  nome      String
+  descricao String?
+  preco     Decimal
+  createdAt DateTime @default(now())
+
+  barber_shop  BarberShop @relation(fields: [barberShopId], references: [id])
+  barberShopId String
+
+  @@map("services")
 }
