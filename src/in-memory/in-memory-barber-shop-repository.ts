@@ -25,7 +25,7 @@ export class InMemoryBarberShopRepository implements BarberShopRepository {
 
   async create(data: Prisma.BarberShopCreateInput) {
     const barberShop = {
-      id: randomUUID(),
+      id: data.id ?? randomUUID(),
       nome: data.nome,
       email: data.email,
       senha_hash: data.senha_hash,

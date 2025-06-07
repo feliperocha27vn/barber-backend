@@ -37,7 +37,7 @@ describe('Barber Shop Authentication Use Case', () => {
       complemento: 'Sala 205',
     })
 
-    expect(() =>
+    await expect(() =>
       sut.execute({
         email: 'contato@barbeariadojoao.com.br',
         senha: 'wrong-password',
