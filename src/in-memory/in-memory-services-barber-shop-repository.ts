@@ -5,10 +5,22 @@ import { randomUUID } from 'node:crypto'
 export class InMemoryServicesBarberShopRepository
   implements ServicesBarberShopRepository
 {
-  private sercicesBarberShop: Services[] = []
+  private servicesBarberShop: Services[] = []
+
+  async findById(idBarberShop: string, idService: string) {
+    const service = this.servicesBarberShop.find(
+      item => idService === item.id && idBarberShop === item.barber_shop_id
+    )
+
+    if (!service) {
+      return null
+    }
+
+    return service
+  }
 
   async fetchMany() {
-    return this.sercicesBarberShop
+    return this.servicesBarberShop
   }
 
   async create(data: Prisma.ServicesUncheckedCreateInput) {
@@ -21,7 +33,7 @@ export class InMemoryServicesBarberShopRepository
       createdAt: new Date(),
     }
 
-    this.sercicesBarberShop.push(servicesBarberShop)
+    this.servicesBarberShop.push(servicesBarberShop)
 
     return servicesBarberShop
   }
