@@ -19,8 +19,16 @@ export class InMemoryServicesBarberShopRepository
     return service
   }
 
-  async fetchMany() {
-    return this.servicesBarberShop
+  async fetchMany(idBarberShop: string) {
+    const barberShopServices = this.servicesBarberShop.filter(
+      item => item.barber_shop_id === idBarberShop
+    )
+
+    if (!barberShopServices) {
+      return null
+    }
+
+    return barberShopServices
   }
 
   async create(data: Prisma.ServicesUncheckedCreateInput) {

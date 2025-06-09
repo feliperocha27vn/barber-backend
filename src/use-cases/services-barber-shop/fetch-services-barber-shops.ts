@@ -1,17 +1,33 @@
 import type { ServicesBarberShopRepository } from '@/repositories/services-barber-shop-repository'
 import type { Services } from '@prisma/client'
+import { ResourceNotFoundError } from '../errors/resource-not-found-error'
+import type { BarberShopRepository } from '@/repositories/barber-shop-repository'
+
+interface FetchServicesBarberShopsUseCaseRequest {
+  idBarberShop: string
+}
 
 interface FetchServicesBarberShopsUseCaseResponse {
-  services: Services[]
+  services: Services[] | null
 }
 
 export class FetchServicesBarberShopsUseCase {
   constructor(
-    private servicesBarberShopRepository: ServicesBarberShopRepository
+    private servicesBarberShopRepository: ServicesBarberShopRepository,
+    private barberShopRepository: BarberShopRepository
   ) {}
 
-  async execute(): Promise<FetchServicesBarberShopsUseCaseResponse> {
-    const services = await this.servicesBarberShopRepository.fetchMany()
+  async execute({
+    idBarberShop,
+  }: FetchServicesBarberShopsUseCaseRequest): Promise<FetchServicesBarberShopsUseCaseResponse> {
+    const barberShop = await this.barberShopRepository.findById(idBarberShop)
+
+    if (!barberShop) {
+      throw new ResourceNotFoundError()
+    }
+
+    const services =
+      await this.servicesBarberShopRepository.fetchMany(idBarberShop)
 
     return {
       services,
