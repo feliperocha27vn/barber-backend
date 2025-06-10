@@ -5,12 +5,8 @@ import { randomUUID } from 'node:crypto'
 export class InMemoryBarberShopRepository implements BarberShopRepository {
   private barberShops: BarberShop[] = []
 
-  async findAllBarbersShops(query: string) {
-    const barberShopsFilter = await this.barberShops.filter(item =>
-      item.nome.includes(query)
-    )
-
-    return barberShopsFilter
+  async fetchBarberShops() {
+    return this.barberShops
   }
 
   async findById(id: string) {
