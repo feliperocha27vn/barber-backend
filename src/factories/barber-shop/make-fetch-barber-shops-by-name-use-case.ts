@@ -3,9 +3,9 @@ import { GetAllBarberShopsUseCase } from '@/use-cases/barber-shop/fetch-barber-s
 
 export function makeFetchBarberShopsByName() {
   const prismaBarberShopRepository = new PrismaBarberShopRepository()
-  const fetchBarberShopByName = new GetAllBarberShopsUseCase(
+  const fetchBarberShops = new GetAllBarberShopsUseCase(
     prismaBarberShopRepository
   )
 
-  return fetchBarberShopByName
+  return fetchBarberShops
 }

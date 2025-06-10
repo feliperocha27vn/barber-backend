@@ -31,16 +31,8 @@ export class PrismaBarberShopRepository implements BarberShopRepository {
     return barberShop
   }
 
-  findAllBarbersShops(query: string) {
-    const barberShops = prisma.barberShop.findMany({
-      where: {
-        nome: {
-          contains: query,
-          // não diferencia maiusculas e minusculas
-          mode: 'insensitive',
-        },
-      },
-    })
+  fetchBarberShops() {
+    const barberShops = prisma.barberShop.findMany()
 
     return barberShops
   }
