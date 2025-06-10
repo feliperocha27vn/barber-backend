@@ -3,7 +3,7 @@ import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-err
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 
 export const fetchBarberShopsByName: FastifyPluginAsyncZod = async app => {
-  app.post('/barbearias/fetch-barber-shops', async (request, response) => {
+  app.get('/barbearias/fetch-barber-shops', async (request, response) => {
     const fetchBarberShops = makeFetchBarberShopsByName()
 
     try {
