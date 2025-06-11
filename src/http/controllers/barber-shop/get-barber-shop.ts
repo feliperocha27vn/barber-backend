@@ -8,6 +8,7 @@ export const getBarberShop: FastifyPluginAsyncZod = async app => {
     '/barbearias/get-barber-shops',
     {
       schema: {
+        tags: ['Barbearias'],
         body: z.object({
           barber_id: z.string().uuid(),
         }),

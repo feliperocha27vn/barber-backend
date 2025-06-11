@@ -9,6 +9,7 @@ export const register: FastifyPluginAsyncZod = async app => {
     '/barbearias/register',
     {
       schema: {
+        tags: ['Barbearias'],
         body: z.object({
           nome: z.string(),
           email: z.string().email(),

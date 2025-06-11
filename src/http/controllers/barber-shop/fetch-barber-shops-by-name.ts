@@ -3,19 +3,27 @@ import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-err
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 
 export const fetchBarberShopsByName: FastifyPluginAsyncZod = async app => {
-  app.get('/barbearias/fetch-barber-shops', async (request, response) => {
-    const fetchBarberShops = makeFetchBarberShopsByName()
+  app.get(
+    '/barbearias/fetch-barber-shops',
+    {
+      schema: {
+        tags: ['Barbearias'],
+      },
+    },
+    async (request, response) => {
+      const fetchBarberShops = makeFetchBarberShopsByName()
 
-    try {
-      const barberShop = await fetchBarberShops.execute()
+      try {
+        const barberShop = await fetchBarberShops.execute()
 
-      return response.status(200).send(barberShop)
-    } catch (error) {
-      if (error instanceof ResourceNotFoundError) {
-        return response.status(409).send({
-          message: error.message,
-        })
+        return response.status(200).send(barberShop)
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return response.status(409).send({
+            message: error.message,
+          })
+        }
       }
     }
-  })
+  )
 }

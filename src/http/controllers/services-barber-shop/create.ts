@@ -7,6 +7,7 @@ export const create: FastifyPluginAsyncZod = async app => {
     '/barbearias/servicos',
     {
       schema: {
+        tags: ['Serviços da Barbearia'],
         body: z.object({
           nome: z.string(),
           descricao: z.string(),

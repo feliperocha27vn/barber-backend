@@ -8,6 +8,7 @@ export const login: FastifyPluginAsyncZod = async app => {
     '/barbearias/login',
     {
       schema: {
+        tags: ['Barbearias'],
         body: z.object({
           email: z.string().email(),
           senha: z.string(),
