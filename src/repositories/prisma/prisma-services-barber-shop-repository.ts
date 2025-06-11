@@ -6,7 +6,7 @@ import type { ServicesBarberShopRepository } from '../services-barber-shop-repos
 export class PrismaServicesBarberShopRepository
   implements ServicesBarberShopRepository
 {
-  async create(data: Prisma.ServicesUncheckedCreateInput): Promise<Services> {
+  async create(data: Prisma.ServicesUncheckedCreateInput) {
     const serviceBarberShop = await prisma.services.create({
       data,
     })
@@ -14,7 +14,7 @@ export class PrismaServicesBarberShopRepository
     return serviceBarberShop
   }
 
-  async fetchMany(idBarberShop: string): Promise<Services[] | null> {
+  async fetchMany(idBarberShop: string) {
     const servicesBarberShop = await prisma.services.findMany({
       where: {
         barber_shop_id: idBarberShop,
@@ -24,10 +24,7 @@ export class PrismaServicesBarberShopRepository
     return servicesBarberShop
   }
 
-  async findById(
-    idBarberShop: string,
-    idService: string
-  ): Promise<Services | null> {
+  async findById(idBarberShop: string, idService: string) {
     const serviceBarberShopById = await prisma.services.findUnique({
       where: {
         id: idService,
