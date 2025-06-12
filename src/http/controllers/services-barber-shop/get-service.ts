@@ -6,13 +6,13 @@ import { z } from 'zod'
 
 export const getServiceBarberShop: FastifyPluginAsyncZod = async app => {
   app.get(
-    '/barbearias/servicos/:idBarberShop/:idServiceBarberShop',
+    '/servicos/:idBarberShop/:idServiceBarberShop',
     {
       schema: {
         tags: ['Serviços da Barbearia'],
         params: z.object({
           idBarberShop: z.string().uuid(),
-          idServiceBarberShop: z.string().uuid()
+          idServiceBarberShop: z.string().uuid(),
         }),
       },
     },
@@ -24,7 +24,7 @@ export const getServiceBarberShop: FastifyPluginAsyncZod = async app => {
       try {
         const { service } = await getServiceBarberShopUseCase.execute({
           idBarberShop,
-          idService: idServiceBarberShop
+          idService: idServiceBarberShop,
         })
 
         return response.status(201).send({ service })
