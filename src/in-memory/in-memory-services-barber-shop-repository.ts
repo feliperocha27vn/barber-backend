@@ -7,6 +7,31 @@ export class InMemoryServicesBarberShopRepository
 {
   private servicesBarberShop: Services[] = []
 
+  async update(
+    idBarberShop: string,
+    idService: string,
+    serviceData: Partial<Services>
+  ) {
+    const serviceIndex = this.servicesBarberShop.findIndex(
+      item => idService === item.id && idBarberShop === item.barber_shop_id
+    )
+
+    const serviceExistes = this.servicesBarberShop[serviceIndex]
+
+    if (serviceIndex < 0) {
+      return null
+    }
+
+    const serviceUpdated = {
+      ...serviceExistes,
+      ...serviceData,
+    }
+
+    const service = serviceUpdated
+
+    return service
+  }
+
   async findById(idBarberShop: string, idService: string) {
     const service = this.servicesBarberShop.find(
       item => idService === item.id && idBarberShop === item.barber_shop_id
