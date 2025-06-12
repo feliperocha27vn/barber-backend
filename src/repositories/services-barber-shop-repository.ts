@@ -7,6 +7,6 @@ export interface ServicesBarberShopRepository {
   update(
     idBarberShop: string,
     idService: string,
-    service: Partial<Services>
+    service: Partial<Prisma.ServicesUncheckedUpdateInput>
   ): Promise<Services | null>
 }

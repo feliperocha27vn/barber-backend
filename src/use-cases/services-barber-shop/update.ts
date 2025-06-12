@@ -1,12 +1,12 @@
 import type { ServicesBarberShopRepository } from '@/repositories/services-barber-shop-repository'
-import type { Services } from '@prisma/client'
+import type { Prisma, Services } from '@prisma/client'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 import type { BarberShopRepository } from '@/repositories/barber-shop-repository'
 
 interface UpdateServiceBarberShopUseCaseRequest {
   idBarberShop: string
   idService: string
-  data: Partial<Services>
+  data: Partial<Prisma.ServicesUncheckedUpdateInput>
 }
 
 interface UpdateServiceBarberShopUseCaseResponse {

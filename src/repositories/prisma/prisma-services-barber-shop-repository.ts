@@ -34,4 +34,16 @@ export class PrismaServicesBarberShopRepository
 
     return serviceBarberShopById
   }
+
+  update(idBarberShop: string, idService: string, service: Partial<Services>) {
+    const serviceBarberShopUpdated = prisma.services.update({
+      where: {
+        id: idService,
+        barber_shop_id: idBarberShop,
+      },
+      data: service,
+    })
+
+    return serviceBarberShopUpdated
+  }
 }
