@@ -5,7 +5,7 @@ import { z } from 'zod'
 
 export const login: FastifyPluginAsyncZod = async app => {
   app.post(
-    '/barbearias/login',
+    '/barbearia/login',
     {
       schema: {
         tags: ['Barbearias'],

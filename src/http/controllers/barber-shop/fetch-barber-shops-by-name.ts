@@ -4,7 +4,7 @@ import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 
 export const fetchBarberShopsByName: FastifyPluginAsyncZod = async app => {
   app.get(
-    '/barbearias/fetch-barber-shops',
+    '/barbearia/fetch-barber-shops',
     {
       schema: {
         tags: ['Barbearias'],
