@@ -12,16 +12,20 @@ export class InMemoryServicesBarberShopRepository
     idService: string,
     serviceData: Partial<Services>
   ) {
+    // procuro o indice do serviço em questão
     const serviceIndex = this.servicesBarberShop.findIndex(
       item => idService === item.id && idBarberShop === item.barber_shop_id
     )
 
+    // ao encontrar o indice, armazeno ele dentro de uma const
     const serviceExistes = this.servicesBarberShop[serviceIndex]
 
     if (serviceIndex < 0) {
       return null
     }
 
+    // uso o spread operator para jogar os dados do serviço que já existe,
+    // mais os dados que foram passados para atualizar
     const serviceUpdated = {
       ...serviceExistes,
       ...serviceData,
