@@ -6,17 +6,20 @@ import { InMemoryBarberShopRepository } from '@/in-memory/in-memory-barber-shop-
 import { hash } from 'bcryptjs'
 
 let servicesBarberShopRepository: ServicesBarberShopRepository
+let barberShopRepository = new InMemoryBarberShopRepository()
 let sut: CreateServiceBarberShopUseCase
 
 describe('Create service use case', () => {
   beforeEach(() => {
+    barberShopRepository = new InMemoryBarberShopRepository()
     servicesBarberShopRepository = new InMemoryServicesBarberShopRepository()
-    sut = new CreateServiceBarberShopUseCase(servicesBarberShopRepository)
+    sut = new CreateServiceBarberShopUseCase(
+      servicesBarberShopRepository,
+      barberShopRepository
+    )
   })
 
   it('deve garantir que o serviço seja criado', async () => {
-    const barberShopRepository = new InMemoryBarberShopRepository()
-
     barberShopRepository.create({
       id: 'barber-shop-1',
       nome: 'Barbearia do João',

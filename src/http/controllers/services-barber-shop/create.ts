@@ -1,4 +1,5 @@
 import { makeCreateServiceBarberShopUseCase } from '@/factories/services-barber-shop/make-create-use-case'
+import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
@@ -22,12 +23,20 @@ export const create: FastifyPluginAsyncZod = async app => {
       const createServiceBarberShopUseCase =
         makeCreateServiceBarberShopUseCase()
 
-      await createServiceBarberShopUseCase.execute({
-        nome,
-        descricao,
-        preco,
-        barberShopId,
-      })
+      try {
+        await createServiceBarberShopUseCase.execute({
+          nome,
+          descricao,
+          preco,
+          barberShopId,
+        })
+      } catch (error) {
+        if (error instanceof ResourceNotFoundError) {
+          return response.status(409).send({
+            message: error.message,
+          })
+        }
+      }
 
       return response.status(201).send()
     }
