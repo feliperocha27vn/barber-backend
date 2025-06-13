@@ -34,7 +34,7 @@ export const deleteRoute: FastifyPluginAsyncZod = async app => {
         }
       }
 
-      return response.status(201).send()
+      return response.status(200).send()
     }
   )
 }
