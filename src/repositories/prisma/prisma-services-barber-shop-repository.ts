@@ -35,8 +35,12 @@ export class PrismaServicesBarberShopRepository
     return serviceBarberShopById
   }
 
-  update(idBarberShop: string, idService: string, service: Partial<Services>) {
-    const serviceBarberShopUpdated = prisma.services.update({
+  async update(
+    idBarberShop: string,
+    idService: string,
+    service: Partial<Services>
+  ) {
+    const serviceBarberShopUpdated = await prisma.services.update({
       where: {
         id: idService,
         barber_shop_id: idBarberShop,
@@ -45,5 +49,14 @@ export class PrismaServicesBarberShopRepository
     })
 
     return serviceBarberShopUpdated
+  }
+
+  async delete(idBarberShop: string, idService: string) {
+    await prisma.services.delete({
+      where: {
+        id: idService,
+        barber_shop_id: idBarberShop,
+      },
+    })
   }
 }

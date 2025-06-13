@@ -4,5 +4,7 @@
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
-  "editor.screenReaderAnnounceInlineSuggestion": false
+  "editor.screenReaderAnnounceInlineSuggestion": false,
+  "editor.inlineSuggest.edits.allowCodeShifting": "never",
+  "editor.inlineSuggest.edits.renderSideBySide": "never"
 }

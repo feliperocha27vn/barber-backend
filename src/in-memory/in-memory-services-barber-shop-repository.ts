@@ -7,6 +7,18 @@ export class InMemoryServicesBarberShopRepository
 {
   private servicesBarberShop: Services[] = []
 
+  async delete(idBarberShop: string, idService: string) {
+    const serviceIndex = this.servicesBarberShop.findIndex(
+      item => item.barber_shop_id === idBarberShop && item.id === idService
+    )
+
+    if (serviceIndex < 0) {
+      return null
+    }
+
+    this.servicesBarberShop.splice(serviceIndex, 1)
+  }
+
   async update(
     idBarberShop: string,
     idService: string,

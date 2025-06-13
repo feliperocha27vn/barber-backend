@@ -9,4 +9,5 @@ export interface ServicesBarberShopRepository {
     idService: string,
     service: Partial<Prisma.ServicesUncheckedUpdateInput>
   ): Promise<Services | null>
+  delete(idBarberShop: string, idService: string): void
 }
