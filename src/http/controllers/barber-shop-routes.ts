@@ -7,6 +7,9 @@ import { fetchBarberShopsByName } from './barber-shop/fetch-barber-shops-by-name
 export const barberShopRoutes: FastifyPluginAsync = async app => {
   app.register(register)
   app.register(login)
-  app.register(getBarberShop)
+
   app.register(fetchBarberShopsByName)
+
+  //authenticate
+  app.register(getBarberShop)
 }

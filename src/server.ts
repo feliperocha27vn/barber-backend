@@ -11,6 +11,7 @@ import { fastifySwaggerUi } from '@fastify/swagger-ui'
 import { env } from './env'
 import { barberShopRoutes } from './http/controllers/barber-shop-routes'
 import { servicesBarberShopRoutes } from './http/controllers/services-barber-shop'
+import fastifyJwt from '@fastify/jwt'
 
 app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)
@@ -31,6 +32,10 @@ app.register(fastifySwagger, {
 
 app.register(fastifySwaggerUi, {
   routePrefix: '/docs',
+})
+
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
 })
 
 app.register(barberShopRoutes)

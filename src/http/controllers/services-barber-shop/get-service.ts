@@ -1,29 +1,30 @@
 import { makeFetchServiceBarberShopUseCase } from '@/factories/services-barber-shop/make-fetch-services-barber-shop'
 import { makeGetServiceBarberShopUseCase } from '@/factories/services-barber-shop/make-get-service-barber-shop-use-case'
+import { verifyJwt } from '@/middlewares/jwt-verify'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
 export const getServiceBarberShop: FastifyPluginAsyncZod = async app => {
   app.get(
-    '/servicos/:idBarberShop/:idServiceBarberShop',
+    '/servico/:idServiceBarberShop',
     {
+      onRequest: [verifyJwt],
       schema: {
         tags: ['Serviços da Barbearia'],
         params: z.object({
-          idBarberShop: z.string().uuid(),
           idServiceBarberShop: z.string().uuid(),
         }),
       },
     },
     async (request, response) => {
-      const { idBarberShop, idServiceBarberShop } = request.params
+      const { idServiceBarberShop } = request.params
 
       const getServiceBarberShopUseCase = makeGetServiceBarberShopUseCase()
 
       try {
         const { service } = await getServiceBarberShopUseCase.execute({
-          idBarberShop,
+          idBarberShop: request.user.sub,
           idService: idServiceBarberShop,
         })
 

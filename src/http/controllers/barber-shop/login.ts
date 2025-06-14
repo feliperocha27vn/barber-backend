@@ -21,12 +21,19 @@ export const login: FastifyPluginAsyncZod = async app => {
       const authenticationUseCase = makeAuthenticationUseCase()
 
       try {
-        const barberShop = await authenticationUseCase.execute({
+        const { barberShop } = await authenticationUseCase.execute({
           email,
           senha,
         })
 
-        return response.status(200).send(barberShop)
+        const token = await response.jwtSign(
+          {},
+          {
+            sign: { sub: barberShop.id },
+          }
+        )
+
+        return response.status(200).send({ token })
       } catch (error) {
         if (error instanceof InvalidCredentialsError) {
           return response.status(409).send({

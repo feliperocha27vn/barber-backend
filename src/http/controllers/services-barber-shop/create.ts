@@ -1,4 +1,5 @@
 import { makeCreateServiceBarberShopUseCase } from '@/factories/services-barber-shop/make-create-use-case'
+import { verifyJwt } from '@/middlewares/jwt-verify'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
@@ -7,18 +8,18 @@ export const create: FastifyPluginAsyncZod = async app => {
   app.post(
     '/servicos',
     {
+      onRequest: [verifyJwt],
       schema: {
         tags: ['Serviços da Barbearia'],
         body: z.object({
           nome: z.string(),
           descricao: z.string(),
           preco: z.coerce.number(),
-          barberShopId: z.string().uuid(),
         }),
       },
     },
     async (request, response) => {
-      const { nome, descricao, preco, barberShopId } = request.body
+      const { nome, descricao, preco } = request.body
 
       const createServiceBarberShopUseCase =
         makeCreateServiceBarberShopUseCase()
@@ -28,7 +29,7 @@ export const create: FastifyPluginAsyncZod = async app => {
           nome,
           descricao,
           preco,
-          barberShopId,
+          barberShopId: request.user.sub,
         })
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {

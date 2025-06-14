@@ -1,29 +1,30 @@
 import { makeDeleteServiceBarberShopUseCase } from '@/factories/services-barber-shop/make-delete-use-case'
+import { verifyJwt } from '@/middlewares/jwt-verify'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
 export const deleteRoute: FastifyPluginAsyncZod = async app => {
   app.delete(
-    '/servicos',
+    '/servico/:idService',
     {
+      onRequest: [verifyJwt],
       schema: {
         tags: ['Serviços da Barbearia'],
-        body: z.object({
-          idBarberShop: z.string().uuid(),
+        params: z.object({
           idService: z.string().uuid(),
         }),
       },
     },
     async (request, response) => {
-      const { idBarberShop, idService } = request.body
+      const { idService } = request.params
 
       const updateServiceBarberShopUseCase =
         makeDeleteServiceBarberShopUseCase()
 
       try {
         await updateServiceBarberShopUseCase.execute({
-          idBarberShop,
+          idBarberShop: request.user.sub,
           idService,
         })
       } catch (error) {
@@ -34,7 +35,7 @@ export const deleteRoute: FastifyPluginAsyncZod = async app => {
         }
       }
 
-      return response.status(201).send()
+      return response.status(200).send()
     }
   )
 }
