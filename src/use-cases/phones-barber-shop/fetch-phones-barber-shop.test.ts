@@ -1,25 +1,25 @@
 import { InMemoryBarberShopRepository } from '@/in-memory/in-memory-barber-shop-repository'
 import { InMemoryPhonesBarberShopRepository } from '@/in-memory/in-memory-phones-barber-shop-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { CreatePhoneBarberShopUseCase } from './create'
 import { hash } from 'bcryptjs'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
+import { FetchPhoneBarberShopUseCase } from './fetch-phones-barber-shop'
 
 let barberShopRepository = new InMemoryBarberShopRepository()
 let phonesBarberShopRepository = new InMemoryPhonesBarberShopRepository()
-let sut: CreatePhoneBarberShopUseCase
+let sut: FetchPhoneBarberShopUseCase
 
-describe('Create phone barber shop use case', () => {
+describe('Fetch phone barber shop use case', () => {
   beforeEach(() => {
     barberShopRepository = new InMemoryBarberShopRepository()
     phonesBarberShopRepository = new InMemoryPhonesBarberShopRepository()
-    sut = new CreatePhoneBarberShopUseCase(
+    sut = new FetchPhoneBarberShopUseCase(
       phonesBarberShopRepository,
       barberShopRepository
     )
   })
 
-  it('deve garantir que o telefone seja criado', async () => {
+  it('deve garantir que os telefones de uma barbearia seja buscado', async () => {
     barberShopRepository.create({
       id: 'barber-shop-1',
       nome: 'Barbearia do João',
@@ -35,22 +35,34 @@ describe('Create phone barber shop use case', () => {
       complemento: 'Sala 205',
     })
 
-    const { phoneBarberShop } = await sut.execute({
+    phonesBarberShopRepository.create({
+      id: 'phone-1',
       numero: '123456789',
       tipo: 'celular',
+      barber_shop_id: 'barber-shop-1',
+    })
+
+    phonesBarberShopRepository.create({
+      id: 'phone-2',
+      numero: '123456710',
+      tipo: 'celular',
+      barber_shop_id: 'barber-shop-1',
+    })
+
+    const { phoneBarberShop } = await sut.execute({
       barberShopId: 'barber-shop-1',
     })
 
-    expect(phoneBarberShop.id).toEqual(expect.any(String))
+    expect(phoneBarberShop).toHaveLength(2)
+    expect(phoneBarberShop).toEqual([
+      expect.objectContaining({ id: 'phone-1' }),
+      expect.objectContaining({ id: 'phone-2' }),
+    ])
   })
 
-  it('deve garantir que o telefone não seja criado, se não existir a barbearia', async () => {
+  it('deve garantir que os telefones não seja buscado, se não existir a barbearia', async () => {
     await expect(() =>
-      sut.execute({
-        numero: '123456789',
-        tipo: 'celular',
-        barberShopId: 'no-exists-id',
-      })
-    ).rejects.toBeInstanceOf(ResourceNotFoundError )
+      sut.execute({ barberShopId: 'no-exists' })
+    ).rejects.toBeInstanceOf(ResourceNotFoundError)
   })
 })

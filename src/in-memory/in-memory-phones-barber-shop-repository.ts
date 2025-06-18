@@ -7,6 +7,18 @@ export class InMemoryPhonesBarberShopRepository
 {
   private phonesBarberShop: BarberShopPhones[] = []
 
+  async fetchMany(idBarberShop: string) {
+    const phoneBarberShop = this.phonesBarberShop.filter(
+      item => item.barber_shop_id === idBarberShop
+    )
+
+    if (!phoneBarberShop) {
+      return null
+    }
+
+    return phoneBarberShop
+  }
+
   async create(data: Prisma.BarberShopPhonesUncheckedCreateInput) {
     const phoneBarberShop = {
       id: data.id ?? randomUUID(),
