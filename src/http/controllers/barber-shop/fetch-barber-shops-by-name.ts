@@ -14,9 +14,9 @@ export const fetchBarberShopsByName: FastifyPluginAsyncZod = async app => {
       const fetchBarberShops = makeFetchBarberShopsByName()
 
       try {
-        const barberShop = await fetchBarberShops.execute()
+        const barberShops = await fetchBarberShops.execute()
 
-        return response.status(200).send(barberShop)
+        return response.status(200).send(barberShops)
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return response.status(409).send({
