@@ -68,9 +68,8 @@ export const register: FastifyPluginAsyncZod = async app => {
             message: error.message,
           })
         }
-
-        return response.status(201).send()
       }
+      return response.status(201).send()
     }
   )
 }
