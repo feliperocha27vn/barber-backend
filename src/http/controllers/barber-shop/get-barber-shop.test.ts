@@ -41,4 +41,10 @@ describe('Login (e2)', () => {
 
     expect(response.status).toEqual(200)
   })
+
+  it('should not be able get barber shop, if user not authorizated', async () => {
+    const response = await request(app.server).get('/barbearia/get-barber-shop')
+
+    expect(response.status).toEqual(401)
+  })
 })
