@@ -28,8 +28,6 @@ describe('Register (e2)', () => {
         complemento: 'Sala 205',
       })
 
-    //   console.log(response);
-
     expect(response.status).toEqual(201)
   })
 })
