@@ -31,5 +31,8 @@ describe('Fetch barbershop (e2)', () => {
     )
 
     expect(response.status).toEqual(200)
+    expect(response.body).toEqual([
+      expect.objectContaining({ nome: 'Barbearia do João' }),
+    ])
   })
 })

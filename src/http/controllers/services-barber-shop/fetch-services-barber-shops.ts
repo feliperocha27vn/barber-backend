@@ -18,7 +18,7 @@ export const fetchServicesBarberShop: FastifyPluginAsyncZod = async app => {
           idBarberShop: request.user.sub,
         })
 
-        return response.status(201).send({ services })
+        return response.status(200).send({ services })
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return response.status(409).send({

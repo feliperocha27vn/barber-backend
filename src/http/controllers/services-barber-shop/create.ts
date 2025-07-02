@@ -11,7 +11,7 @@ export const create: FastifyPluginAsyncZod = async app => {
         tags: ['Serviços da Barbearia'],
         body: z.object({
           nome: z.string(),
-          descricao: z.string(),
+          descricao: z.string().nullable(),
           preco: z.coerce.number(),
         }),
       },
@@ -23,11 +23,15 @@ export const create: FastifyPluginAsyncZod = async app => {
         makeCreateServiceBarberShopUseCase()
 
       try {
-        await createServiceBarberShopUseCase.execute({
+        const { service } = await createServiceBarberShopUseCase.execute({
           nome,
           descricao,
           preco,
           barberShopId: request.user.sub,
+        })
+
+        return response.status(201).send({
+          service,
         })
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
@@ -36,8 +40,6 @@ export const create: FastifyPluginAsyncZod = async app => {
           })
         }
       }
-
-      return response.status(201).send()
     }
   )
 }

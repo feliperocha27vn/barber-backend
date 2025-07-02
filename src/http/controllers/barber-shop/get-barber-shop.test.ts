@@ -26,18 +26,18 @@ afterAll(async () => {
 
 describe('Login (e2)', () => {
   it('should be able get barber shop', async () => {
-    const responseWithTokenJwt = await request(app.server)
+    const authResponse = await request(app.server)
       .post('/barbearia/login')
       .send({
         email: 'contato@barbeariadojoao.com.br',
         senha: '123456',
       })
 
-    const tokenJwt = responseWithTokenJwt.body.token
+    const { token } = authResponse.body
 
     const response = await request(app.server)
       .get('/barbearia/get-barber-shop')
-      .set('Authorization', `Bearer ${tokenJwt}`)
+      .set('Authorization', `Bearer ${token}`)
 
     expect(response.status).toEqual(200)
   })
