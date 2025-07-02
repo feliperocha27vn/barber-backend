@@ -1,4 +1,3 @@
-import { makeFetchServiceBarberShopUseCase } from '@/factories/services-barber-shop/make-fetch-services-barber-shop'
 import { makeGetServiceBarberShopUseCase } from '@/factories/services-barber-shop/make-get-service-barber-shop-use-case'
 import { verifyJwt } from '@/middlewares/jwt-verify'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'

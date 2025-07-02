@@ -1,14 +1,11 @@
 import { makeFetchServiceBarberShopUseCase } from '@/factories/services-barber-shop/make-fetch-services-barber-shop'
-import { verifyJwt } from '@/middlewares/jwt-verify'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
-import { z } from 'zod'
 
 export const fetchServicesBarberShop: FastifyPluginAsyncZod = async app => {
   app.get(
     '/servicos',
     {
-      onRequest: [verifyJwt],
       schema: {
         tags: ['Serviços da Barbearia'],
       },

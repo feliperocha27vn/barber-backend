@@ -1,8 +1,8 @@
 import type { FastifyPluginAsync } from 'fastify'
-import { register } from './barber-shop/register'
-import { login } from './barber-shop/login'
-import { getBarberShop } from './barber-shop/get-barber-shop'
-import { fetchBarberShopsByName } from './barber-shop/fetch-barber-shops-by-name'
+import { register } from './register'
+import { login } from './login'
+import { getBarberShop } from './get-barber-shop'
+import { fetchBarberShopsByName } from './fetch-barber-shops-by-name'
 
 export const barberShopRoutes: FastifyPluginAsync = async app => {
   app.register(register)

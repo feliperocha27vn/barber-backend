@@ -9,9 +9,9 @@ import {
   validatorCompiler,
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod'
-import { barberShopRoutes } from './http/controllers/barber-shop-routes'
-import { servicesBarberShopRoutes } from './http/controllers/services-barber-shop'
+import { barberShopRoutes } from './http/controllers/barber-shop/routes'
 import { env } from './env'
+import { servicesBarberShopRoutes } from './http/controllers/services-barber-shop/routes'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
