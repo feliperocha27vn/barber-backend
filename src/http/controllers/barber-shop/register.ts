@@ -43,7 +43,7 @@ export const register: FastifyPluginAsyncZod = async app => {
       const registerUseCase = makeRegisterUseCase()
 
       try {
-        await registerUseCase.execute({
+        const barberShop = await registerUseCase.execute({
           nome,
           email,
           senha,
@@ -56,6 +56,8 @@ export const register: FastifyPluginAsyncZod = async app => {
           numero,
           complemento,
         })
+
+        return response.status(201).send(barberShop)
       } catch (error) {
         if (error instanceof InvalidParameters) {
           return response.status(409).send({
@@ -69,7 +71,6 @@ export const register: FastifyPluginAsyncZod = async app => {
           })
         }
       }
-      return response.status(201).send()
     }
   )
 }
