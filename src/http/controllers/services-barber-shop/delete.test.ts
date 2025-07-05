@@ -2,6 +2,7 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import request from 'supertest'
 import { app } from '@/app'
 import { authenticationBarberShop } from '@/utils/tests/authentication-barber-shop'
+import { prisma } from '@/lib/prisma'
 
 beforeAll(async () => {
   await app.ready()
@@ -13,18 +14,16 @@ afterAll(async () => {
 
 describe('Delete (e2)', () => {
   it('should be able delete service', async () => {
-    const { token } = await authenticationBarberShop(app)
+    const { token, barberShop } = await authenticationBarberShop(app)
 
-    const serviceResponse = await request(app.server)
-      .post('/servicos')
-      .send({
+    const service = await prisma.services.create({
+      data: {
         nome: 'Corte',
         preco: 25,
         descricao: 'Corte de cabelo',
-      })
-      .set('Authorization', `Bearer ${token}`)
-
-    const { service } = serviceResponse.body
+        barber_shop_id: barberShop.id,
+      },
+    })
 
     const responseDelete = await request(app.server)
       .delete(`/servico/${service.id}`)
