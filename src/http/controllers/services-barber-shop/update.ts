@@ -5,7 +5,7 @@ import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
 export const update: FastifyPluginAsyncZod = async app => {
-  app.put(
+  app.patch(
     '/servico',
     {
       onRequest: [verifyJwt],
@@ -43,7 +43,7 @@ export const update: FastifyPluginAsyncZod = async app => {
         }
       }
 
-      return response.status(200).send()
+      return response.status(204).send()
     }
   )
 }

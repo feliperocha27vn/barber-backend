@@ -27,7 +27,7 @@ export const getServiceBarberShop: FastifyPluginAsyncZod = async app => {
           idService: idServiceBarberShop,
         })
 
-        return response.status(201).send({ service })
+        return response.status(200).send({ service })
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return response.status(409).send({
