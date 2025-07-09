@@ -54,4 +54,26 @@ export class InMemoryPhonesBarberShopRepository
 
     return phone
   }
+
+  async update(
+    idBarberShop: string,
+    idBarberShopPhone: string,
+    data: Partial<BarberShopPhones>
+  ) {
+    const phone = this.phonesBarberShop.find(
+      item =>
+        item.barber_shop_id === idBarberShop && item.id === idBarberShopPhone
+    )
+
+    if (!phone) {
+      return null
+    }
+
+    const phoneUpdated = {
+      ...phone,
+      ...data,
+    }
+
+    return phoneUpdated
+  }
 }

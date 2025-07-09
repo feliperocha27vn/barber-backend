@@ -10,4 +10,9 @@ export interface PhonesBarberShopRepository {
     idBarberShop: string,
     idBarberShopPhone: string
   ): Promise<BarberShopPhones | null>
+  update(
+    idBarberShop: string,
+    idBarberShopPhone: string,
+    data: Partial<Prisma.BarberShopPhonesUncheckedUpdateInput>
+  ): Promise<BarberShopPhones | null>
 }
