@@ -10,19 +10,19 @@ export const fetchBarberShopsByName: FastifyPluginAsyncZod = async app => {
         tags: ['Barbearias'],
       },
     },
-    async (request, response) => {
+    async (__, response) => {
       const fetchBarberShops = makeFetchBarberShopsByName()
 
       try {
         const { barberShops } = await fetchBarberShops.execute()
 
-        return response.status(200).send(
-          barberShops.map(barberShop => ({
-            ...barberShop,
-            email: undefined,
-            senha_hash: undefined,
-          }))
-        )
+        const barberShopsNoSensiveData = barberShops.map(barberShop => ({
+          ...barberShop,
+          email: undefined,
+          senha_hash: undefined,
+        }))
+
+        return response.status(200).send(barberShopsNoSensiveData)
       } catch (error) {
         if (error instanceof ResourceNotFoundError) {
           return response.status(409).send({
