@@ -22,7 +22,7 @@ export async function authenticationBarberShop(app: FastifyInstance) {
     email: 'contato@barbeariadojoao.com.br',
     senha: '123456',
   })
-
+  // git
   const { token } = authResponse.body
 
   const { barberShop } = reponseBarberShop.body
