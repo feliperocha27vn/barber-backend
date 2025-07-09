@@ -12,6 +12,7 @@ import {
 import { barberShopRoutes } from './http/controllers/barber-shop/routes'
 import { env } from './env'
 import { servicesBarberShopRoutes } from './http/controllers/services-barber-shop/routes'
+import { phoneBarberShopRoutes } from './http/controllers/barber-shop-phones/routes'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -54,3 +55,4 @@ app.register(fastifyJwt, {
 
 app.register(barberShopRoutes)
 app.register(servicesBarberShopRoutes)
+app.register(phoneBarberShopRoutes)

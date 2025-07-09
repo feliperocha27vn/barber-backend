@@ -6,7 +6,7 @@ import type { PhonesBarberShopRepository } from '@/repositories/phones-barber-sh
 interface UpdatePhoneBarberShopUseCaseRequest {
   idBarberShop: string
   idBarberShopPhone: string
-  data: Partial<Prisma.BarberShopPhonesUncheckedCreateInput>
+  data: Partial<BarberShopPhones>
 }
 
 interface UpdatePhoneBarberShopUseCaseResponse {
