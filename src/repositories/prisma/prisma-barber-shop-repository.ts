@@ -21,8 +21,8 @@ export class PrismaBarberShopRepository implements BarberShopRepository {
     return barberShop
   }
 
-  findById(id: string) {
-    const barberShop = prisma.barberShop.findUnique({
+  async findById(id: string) {
+    const barberShop = await prisma.barberShop.findUnique({
       where: {
         id,
       },

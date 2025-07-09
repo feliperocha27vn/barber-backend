@@ -13,6 +13,6 @@ export interface PhonesBarberShopRepository {
   update(
     idBarberShop: string,
     idBarberShopPhone: string,
-    data: Partial<Prisma.BarberShopPhonesUncheckedUpdateInput>
+    data: Partial<BarberShopPhones>
   ): Promise<BarberShopPhones | null>
 }
