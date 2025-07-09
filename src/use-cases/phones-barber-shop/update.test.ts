@@ -4,6 +4,7 @@ import { hash } from 'bcryptjs'
 import type { PhonesBarberShopRepository } from '@/repositories/phones-barber-shop-repository'
 import { UpdatePhoneBarberShopUseCase } from './update'
 import { InMemoryPhonesBarberShopRepository } from '@/in-memory/in-memory-phones-barber-shop-repository'
+import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 
 let phoneBarberShopRepository: PhonesBarberShopRepository
 let barberShopRepository: InMemoryBarberShopRepository
@@ -51,5 +52,42 @@ describe('Update service use case', () => {
     })
 
     expect(phone).toEqual(expect.objectContaining({ numero: '987654321' }))
+  })
+
+  it('deve retornar um erro se a barbearia não existir', async () => {
+    await expect(() =>
+      sut.execute({
+        idBarberShop: 'barber-shop-no-exists',
+        idBarberShopPhone: 'phone-1',
+        data: {},
+      })
+    ).rejects.toBeInstanceOf(ResourceNotFoundError)
+  })
+
+  it('deve retornar um erro se o telefone não existir', async () => {
+    barberShopRepository.create({
+      id: 'barber-shop-1',
+      nome: 'Barbearia do João',
+      email: 'contato@barbeariadojoao.com.br',
+      senha_hash: await hash('123', 6),
+      area_atendimento: 'Centro',
+      CEP: '01310-100',
+      estado: 'SP',
+      cidade: 'São Paulo',
+      bairro: 'Bela Vista',
+      logradouro: 'Avenida Paulista',
+      numero: '1578',
+      complemento: 'Sala 205',
+    })
+
+    await expect(() =>
+      sut.execute({
+        idBarberShop: 'barber-shop-1',
+        idBarberShopPhone: 'phone-no-exists',
+        data: {
+          numero: '987654321',
+        },
+      })
+    ).rejects.toBeInstanceOf(ResourceNotFoundError)
   })
 })
