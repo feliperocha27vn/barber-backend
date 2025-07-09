@@ -32,6 +32,6 @@ export class DeleteServiceBarberShopUseCase {
       throw new ResourceNotFoundError()
     }
 
-    await this.servicesBarberShopRepository.delete(idBarberShop, idService)
+    this.servicesBarberShopRepository.delete(idBarberShop, idService)
   }
 }

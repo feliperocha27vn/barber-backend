@@ -5,4 +5,9 @@ export interface PhonesBarberShopRepository {
     data: Prisma.BarberShopPhonesUncheckedCreateInput
   ): Promise<BarberShopPhones>
   fetchMany(idBarberShop: string): Promise<BarberShopPhones[] | null>
+  delete(idBarberShop: string, idBarberShopPhone: string): void
+  findById(
+    idBarberShop: string,
+    idBarberShopPhone: string
+  ): Promise<BarberShopPhones | null>
 }

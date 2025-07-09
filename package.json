@@ -7,6 +7,7 @@
     "start": "node dist/server.js",
     "build": "tsup src",
     "test": "vitest run --project unit",
+    "test:watch": "vitest --project unit",
     "test:e2e": "vitest run --project e2e",
     "test:coverage": "vitest run --coverage"
   },

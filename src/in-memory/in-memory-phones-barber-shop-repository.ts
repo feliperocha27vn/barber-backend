@@ -32,4 +32,26 @@ export class InMemoryPhonesBarberShopRepository
 
     return phoneBarberShop
   }
+
+  async delete(idBarberShop: string, idBarberShopPhone: string) {
+    const phoneIndex = this.phonesBarberShop.findIndex(
+      item =>
+        item.id === idBarberShopPhone && item.barber_shop_id === idBarberShop
+    )
+
+    this.phonesBarberShop.splice(phoneIndex, 1)
+  }
+
+  async findById(idBarberShop: string, idBarberShopPhone: string) {
+    const phone = this.phonesBarberShop.find(
+      item =>
+        item.barber_shop_id === idBarberShop && item.id === idBarberShopPhone
+    )
+
+    if (!phone) {
+      return null
+    }
+
+    return phone
+  }
 }
