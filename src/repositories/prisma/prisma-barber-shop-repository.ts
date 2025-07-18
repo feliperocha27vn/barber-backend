@@ -1,6 +1,6 @@
+import { prisma } from '@/lib/prisma'
 import type { Prisma } from '@prisma/client'
 import type { BarberShopRepository } from '../barber-shop-repository'
-import { prisma } from '@/lib/prisma'
 
 export class PrismaBarberShopRepository implements BarberShopRepository {
   async create(data: Prisma.BarberShopCreateInput) {

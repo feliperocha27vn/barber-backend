@@ -4,15 +4,16 @@ import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUi from '@fastify/swagger-ui'
 import fastify from 'fastify'
 import {
+  type ZodTypeProvider,
   jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
-  type ZodTypeProvider,
 } from 'fastify-type-provider-zod'
-import { barberShopRoutes } from './http/controllers/barber-shop/routes'
 import { env } from './env'
-import { servicesBarberShopRoutes } from './http/controllers/services-barber-shop/routes'
 import { phoneBarberShopRoutes } from './http/controllers/barber-shop-phones/routes'
+import { barberShopRoutes } from './http/controllers/barber-shop/routes'
+import { servicesBarberShopRoutes } from './http/controllers/services-barber-shop/routes'
+import { usersRoutes } from './http/controllers/users/routes'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -56,3 +57,4 @@ app.register(fastifyJwt, {
 app.register(barberShopRoutes)
 app.register(servicesBarberShopRoutes)
 app.register(phoneBarberShopRoutes)
+app.register(usersRoutes)
