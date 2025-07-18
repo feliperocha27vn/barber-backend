@@ -1,6 +1,6 @@
 import type { BarberShopRepository } from '@/repositories/barber-shop-repository'
-import { hash } from 'bcryptjs'
 import type { BarberShop } from '@prisma/client'
+import { hash } from 'bcryptjs'
 import { BarberAlreadyExists } from '../errors/barber-already-exists-error'
 import { InvalidParameters } from '../errors/invalid-parameters-error'
 
@@ -47,10 +47,10 @@ export class RegisterUseCase {
       throw new InvalidParameters()
     }
 
-    const userAlreadyExists =
+    const barberShopAlreadyExists =
       await this.barberShopeRepository.findByEmail(email)
 
-    if (userAlreadyExists) {
+    if (barberShopAlreadyExists) {
       throw new BarberAlreadyExists()
     }
 

@@ -51,3 +51,13 @@ model BarberShopPhones {
 
   @@map("barber_shop_phones")
 }
+
+model Users {
+  id            String   @id @default(uuid())
+  nome          String
+  email         String   @unique
+  senha_hash    String
+  emailVerified Boolean?
+  urlImage      String?
+  createdAt     DateTime @default(now())
+}
