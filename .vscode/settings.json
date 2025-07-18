@@ -6,5 +6,8 @@
   },
   "editor.screenReaderAnnounceInlineSuggestion": false,
   "editor.inlineSuggest.edits.allowCodeShifting": "never",
-  "editor.inlineSuggest.edits.renderSideBySide": "never"
+  "editor.inlineSuggest.edits.renderSideBySide": "never",
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
 }
