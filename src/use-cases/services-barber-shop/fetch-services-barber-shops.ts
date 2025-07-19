@@ -1,7 +1,7 @@
+import type { BarberShopRepository } from '@/repositories/barber-shop-repository'
 import type { ServicesBarberShopRepository } from '@/repositories/services-barber-shop-repository'
 import type { Services } from '@prisma/client'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
-import type { BarberShopRepository } from '@/repositories/barber-shop-repository'
 
 interface FetchServicesBarberShopsUseCaseRequest {
   idBarberShop: string

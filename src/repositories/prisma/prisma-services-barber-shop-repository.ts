@@ -1,5 +1,5 @@
-import type { Prisma, Services } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
+import type { Prisma, Services } from '@prisma/client'
 import type { ServicesBarberShopRepository } from '../services-barber-shop-repository'
 
 export class PrismaServicesBarberShopRepository
