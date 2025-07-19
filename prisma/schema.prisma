@@ -8,9 +8,9 @@ datasource db {
 }
 
 model BarberShop {
-  id               String             @id @default(uuid())
+  id               String   @id @default(uuid())
   nome             String
-  email            String             @unique
+  email            String   @unique
   senha_hash       String
   area_atendimento String
   CEP              String
@@ -20,9 +20,11 @@ model BarberShop {
   logradouro       String
   numero           String
   complemento      String?
-  createdAt        DateTime           @default(now())
+  createdAt        DateTime @default(now())
+
   Services         Services[]
   BarberShopPhones BarberShopPhones[]
+  Appointments     Appointments[]
 
   @@map("barber_shop")
 }
@@ -34,8 +36,9 @@ model Services {
   preco     Decimal
   createdAt DateTime @default(now())
 
-  barber_shop    BarberShop @relation(fields: [barber_shop_id], references: [id])
-  barber_shop_id String
+  barber_shop          BarberShop             @relation(fields: [barber_shop_id], references: [id])
+  barber_shop_id       String
+  AppointmentsServices AppointmentsServices[]
 
   @@map("services")
 }
@@ -53,11 +56,43 @@ model BarberShopPhones {
 }
 
 model Users {
-  id            String   @id @default(uuid())
+  id            String         @id @default(uuid())
   nome          String
-  email         String   @unique
+  email         String         @unique
   senha_hash    String
   emailVerified Boolean?
   urlImage      String?
-  createdAt     DateTime @default(now())
+  createdAt     DateTime       @default(now())
+  Appointments  Appointments[]
+
+  @@map("users")
+}
+
+model Appointments {
+  id            String   @id @default(uuid())
+  agendado_para DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
+  barberShopId String     @map("barber_shop_id")
+
+  user   Users  @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  AppointmentsServices AppointmentsServices[]
+
+  @@map("appointments")
+}
+
+model AppointmentsServices {
+  id String @id @default(uuid())
+
+  appoinment     Appointments @relation(fields: [appointmentsId], references: [id])
+  appointmentsId String       @map("appointments_id")
+  service        Services     @relation(fields: [servicesId], references: [id])
+  servicesId     String       @map("services_id")
+
+  @@map("appointments_services")
 }
