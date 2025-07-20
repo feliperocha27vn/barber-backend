@@ -3,6 +3,7 @@ import type { BarberShopRepository } from '@/repositories/barber-shop-repository
 import type { ServicesBarberShopRepository } from '@/repositories/services-barber-shop-repository'
 import type { UsersRepository } from '@/repositories/users-repository'
 import type { Appointments } from '@prisma/client'
+import { InvalidParameters } from '../errors/invalid-parameters-error'
 import { ResourceNotFoundError } from '../errors/resource-not-found-error'
 
 interface CreateAppointmentUseCaseRequest {
@@ -56,6 +57,12 @@ export class CreateAppointmentUseCase {
       barberShopId,
       userId,
     })
+
+    const currentDate = new Date()
+
+    if (currentDate > appointment.agendado_para) {
+      throw new InvalidParameters('The appointment date cannot be in the past.')
+    }
 
     const appointmentService =
       await this.appointmentsRepository.createAppointmentService({

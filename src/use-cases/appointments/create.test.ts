@@ -4,6 +4,7 @@ import { InMemoryServicesBarberShopRepository } from '@/in-memory/in-memory-serv
 import { InMemoryUsersRepository } from '@/in-memory/in-memory-users-repository'
 import { hash } from 'bcryptjs'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { InvalidParameters } from '../errors/invalid-parameters-error'
 import { CreateAppointmentUseCase } from './create'
 
 let sut: CreateAppointmentUseCase
@@ -33,6 +34,8 @@ describe('Create new appointment use case', () => {
   })
 
   it('deve garantir que o agendamento seja criado', async () => {
+    vi.setSystemTime(new Date('2025-07-20T13:00:00Z'))
+
     const user = await usersRepository.create({
       nome: 'John Doe',
       email: 'johndoe@example.com',
@@ -87,5 +90,43 @@ describe('Create new appointment use case', () => {
     )
   })
   //TODO
-  it('deve garantiar que o usuário não faça agendamento em uma data retroativa', async () => {})
+  it('deve garantiar que o usuário não faça agendamento em uma data retroativa', async () => {
+    vi.setSystemTime(new Date('2025-07-20T13:00:00Z'))
+
+    const user = await usersRepository.create({
+      nome: 'John Doe',
+      email: 'johndoe@example.com',
+      senha_hash: await hash('123', 6),
+    })
+
+    const barberShop = await barberShopRepository.create({
+      nome: 'Barbearia do João',
+      email: 'contato@barbeariadojoao.com.br',
+      senha_hash: await hash('123', 6),
+      area_atendimento: 'Centro',
+      CEP: '01310-100',
+      estado: 'SP',
+      cidade: 'São Paulo',
+      bairro: 'Bela Vista',
+      logradouro: 'Avenida Paulista',
+      numero: '1578',
+      complemento: 'Sala 205',
+    })
+
+    const service = await servicesRepository.create({
+      nome: 'Corte de cabelo',
+      descricao: 'Corte de cabelo masculino',
+      preco: 50,
+      barber_shop_id: barberShop.id,
+    })
+
+    expect(() =>
+      sut.execute({
+        agendado_para: new Date('2025-06-20T14:00:00Z'),
+        userId: user.id,
+        barberShopId: barberShop.id,
+        serviceId: service.id,
+      })
+    ).rejects.toBeInstanceOf(InvalidParameters)
+  })
 })

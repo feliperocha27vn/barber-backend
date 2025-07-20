@@ -1,5 +1,5 @@
 export class InvalidParameters extends Error {
-  constructor() {
-    super('Parameters invalids')
+  constructor(message?: string) {
+    super(message ? `Parameters invalids: ${message}` : 'Parameters invalids')
   }
 }
