@@ -15,7 +15,7 @@ describe('Register (e2)', () => {
     const response = await request(app.server).post('/users/register').send({
       nome: 'Felipe',
       email: 'felipe@example.com.br',
-      senha: '123456',
+      telefone: '123456789',
     })
 
     expect(response.status).toEqual(201)

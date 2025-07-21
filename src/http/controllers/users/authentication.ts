@@ -11,19 +11,17 @@ export const authentication: FastifyPluginAsyncZod = async app => {
         tags: ['Usuários'],
         body: z.object({
           email: z.email(),
-          senha: z.string(),
         }),
       },
     },
     async (request, response) => {
-      const { email, senha } = request.body
+      const { email } = request.body
 
       const authenticationUseCase = makeAuthenticationUserUseCase()
 
       try {
         const { user } = await authenticationUseCase.execute({
           email,
-          senha,
         })
 
         const token = await response.jwtSign(

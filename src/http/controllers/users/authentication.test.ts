@@ -1,6 +1,5 @@
 import { app } from '@/app'
 import { prisma } from '@/lib/prisma'
-import { hash } from 'bcryptjs'
 import request from 'supertest'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
@@ -13,12 +12,12 @@ afterAll(async () => {
 })
 
 describe('Register (e2)', () => {
-  it('deve garantir o registro bem-sucedido', async () => {
+  it('deve garantir que a autenticação funcione corretamente para um usuário válido', async () => {
     await prisma.users.create({
       data: {
         nome: 'Felipe',
         email: 'felipe@example.com.br',
-        senha_hash: await hash('123456', 6),
+        telefone: '123456789',
       },
     })
 
@@ -26,7 +25,6 @@ describe('Register (e2)', () => {
       .post('/user/authentication')
       .send({
         email: 'felipe@example.com.br',
-        senha: '123456',
       })
 
     expect(response.status).toEqual(200)

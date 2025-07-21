@@ -13,12 +13,12 @@ export const register: FastifyPluginAsyncZod = async app => {
         body: z.object({
           nome: z.string(),
           email: z.email(),
-          senha: z.string().min(6),
+          telefone: z.string(),
         }),
       },
     },
     async (request, response) => {
-      const { nome, email, senha } = request.body
+      const { nome, email, telefone } = request.body
 
       const registerUseCase = makeRegisterUserUseCase()
 
@@ -26,7 +26,7 @@ export const register: FastifyPluginAsyncZod = async app => {
         await registerUseCase.execute({
           nome,
           email,
-          senha,
+          telefone,
         })
 
         return response.status(201).send()

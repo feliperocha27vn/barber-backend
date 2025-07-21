@@ -59,7 +59,7 @@ model Users {
   id            String         @id @default(uuid())
   nome          String
   email         String         @unique
-  senha_hash    String
+  telefone      String
   emailVerified Boolean?
   urlImage      String?
   createdAt     DateTime       @default(now())
