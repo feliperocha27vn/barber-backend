@@ -39,7 +39,7 @@ describe('Create new appointment use case', () => {
     const user = await usersRepository.create({
       nome: 'John Doe',
       email: 'johndoe@example.com',
-      senha_hash: await hash('123', 6),
+      telefone: '123456789',
     })
 
     const barberShop = await barberShopRepository.create({
@@ -96,7 +96,7 @@ describe('Create new appointment use case', () => {
     const user = await usersRepository.create({
       nome: 'John Doe',
       email: 'johndoe@example.com',
-      senha_hash: await hash('123', 6),
+      telefone: '123456789',
     })
 
     const barberShop = await barberShopRepository.create({
